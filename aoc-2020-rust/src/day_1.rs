@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::fs;
 
 fn parse_input(filename: &str) -> Vec<i32> {
     let file_content = fs::read_to_string(filename).expect("## Could not find or read file");

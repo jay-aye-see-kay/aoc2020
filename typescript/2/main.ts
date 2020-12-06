@@ -23,7 +23,7 @@ const isPasswordValid = (password: string, policy: Policy): boolean => {
   return count >= policy.lower && count <= policy.upper;
 };
 
-const file = fs.readFileSync("./2.input.txt", "utf-8");
+const file = fs.readFileSync("./2/input.txt", "utf-8");
 const lines = file.split("\n").filter((line) => line.length > 0);
 
 let validCount = 0;

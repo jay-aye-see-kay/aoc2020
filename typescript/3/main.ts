@@ -24,7 +24,7 @@ const makeIsTreeAt = (treeLoc: TreeLoc, width: number) => ({ x, y }: Coord) => {
   return treeLoc.has(`${x},${y}`);
 };
 
-const file = fs.readFileSync("./3.input.txt", "utf-8");
+const file = fs.readFileSync("./3/input.txt", "utf-8");
 const { treeLoc, width, height } = parseTreeMap(file);
 const isTreeAtLocation = makeIsTreeAt(treeLoc, width);
 

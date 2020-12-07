@@ -63,4 +63,37 @@ bordingPasses.forEach((p) => {
 });
 
 // ans 996
-console.log("maxId", maxId);
+console.log("part 1: ", maxId);
+
+// -- part 2 --
+
+const seatMap = Array.from(Array(128)).map(() =>
+  Array.from(Array(8)).map(() => " ")
+);
+
+bordingPasses.forEach((p) => {
+  const pass = parsePass(p);
+  seatMap[pass.row][pass.col] = "#";
+});
+
+let printableSeatMap = "";
+seatMap.forEach((row, rowIndex) => {
+  if (rowIndex % 8 === 0) {
+    printableSeatMap += "\n";
+  }
+  row.forEach((seat, colIndex) => {
+    if (colIndex === 4) {
+      printableSeatMap += " ";
+    }
+    printableSeatMap += seat;
+  });
+  printableSeatMap += ` [row ${rowIndex}]\n`;
+});
+
+console.log("printableSeatMap", printableSeatMap);
+
+// from the printed map
+const mySeat = { row: 83, col: 7 };
+
+// ans 671
+console.log("part 2: ", calcPassId(mySeat));

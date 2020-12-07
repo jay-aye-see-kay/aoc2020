@@ -21,8 +21,22 @@ const groupTotals = groups.map((group) => {
   return sharedAnswers.size;
 });
 
+const sum = (a: number[]) => a.reduce((sum, n) => sum + n);
+
 // ans 6633
-console.log(
-  "part 1: ",
-  groupTotals.reduce((sum, t) => sum + t)
-);
+console.log("part 1: ", sum(groupTotals));
+
+// -- part 2 --
+
+const intersect = (a: Set<string>, b: Set<string>) =>
+  new Set([...a].filter((x) => b.has(x)));
+
+const groupTotals2 = groups.map((group) => {
+  const sharedAnswers = group.reduce((acc, answer) => {
+    return intersect(acc, answer);
+  });
+  return sharedAnswers.size;
+});
+
+// not 3196, too low
+console.log("part 2: ", sum(groupTotals2));

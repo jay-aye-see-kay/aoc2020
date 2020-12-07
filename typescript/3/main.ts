@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-const FILENAME = "../../input/3.input.txt";
+const FILENAME = "../input/3.input.txt";
 
 const parseInput = (filename: string) => {
   return fs
@@ -11,17 +11,20 @@ const parseInput = (filename: string) => {
 
 const trees = parseInput(FILENAME);
 const width = trees[0].length;
-const slope = 3;
+const slope = { x: 3, y: 1 };
+const pos = { x: 0, y: 0 };
 let count = 0;
-let column = 0;
 
-trees.slice(1).forEach((row) => {
-  column += slope;
-  if (column >= width) column -=width;
-  if (row[column] === "#") count ++;
-})
+while (true) {
+  pos.y += slope.y;
+  if (pos.y >= trees.length) break;
+
+  pos.x += slope.x;
+  if (pos.x >= width) pos.x -= width;
+
+  if (trees[pos.y][pos.x] === "#") count++;
+}
 
 console.log("count", count);
 
-// not 38
-// not 93
+// ans 228

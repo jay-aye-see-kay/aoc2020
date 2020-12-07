@@ -1,41 +1,27 @@
 import * as fs from "fs";
 
-type TreeLoc = Set<string>;
-type Coord = { x: number; y: number };
+const FILENAME = "../../input/3.input.txt";
 
-const parseTreeMap = (file: string) => {
-  const lines = file.split("\n").filter((line) => line.length > 0);
-  const width = lines[0].length;
-
-  const treeLoc = new Set<string>();
-  lines.forEach((line, y) => {
-    line.split("").forEach((char, x) => {
-      if (char === "#") treeLoc.add(`${x},${y}`);
-    });
-  });
-
-  return { treeLoc, width, height: lines.length };
+const parseInput = (filename: string) => {
+  return fs
+    .readFileSync(filename, "utf-8")
+    .split("\n")
+    .filter((l) => l.length);
 };
 
-const makeIsTreeAt = (treeLoc: TreeLoc, width: number) => ({ x, y }: Coord) => {
-  while (x >= width) {
-    x -= width;
-  }
-  return treeLoc.has(`${x},${y}`);
-};
+const trees = parseInput(FILENAME);
+const width = trees[0].length;
+const slope = 3;
+let count = 0;
+let column = 0;
 
-const file = fs.readFileSync("./3/input.txt", "utf-8");
-const { treeLoc, width, height } = parseTreeMap(file);
-const isTreeAtLocation = makeIsTreeAt(treeLoc, width);
+trees.slice(1).forEach((row) => {
+  column += slope;
+  if (column >= width) column -=width;
+  if (row[column] === "#") count ++;
+})
 
-let treeCount = 0;
-const curPos = { x: 0, y: 0 };
-while (curPos.y < height) {
-  if (isTreeAtLocation(curPos)) treeCount += 1;
-  curPos.x += 1;
-  curPos.y += 3;
-}
+console.log("count", count);
 
 // not 38
-
-console.log("treeCount", treeCount);
+// not 93

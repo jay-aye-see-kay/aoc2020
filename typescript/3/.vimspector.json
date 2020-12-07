@@ -1,0 +1,15 @@
+{
+  "configurations": {
+    "run": {
+      "adapter": "vscode-node",
+      "configuration": {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "stopOnEntry": true,
+        "runtimeArgs": ["-r", "ts-node/register"],
+        "args": ["${workspaceFolder}/main.ts"]
+      }
+    }
+  }
+}

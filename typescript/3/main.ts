@@ -11,20 +11,37 @@ const parseInput = (filename: string) => {
 
 const trees = parseInput(FILENAME);
 const width = trees[0].length;
-const slope = { x: 3, y: 1 };
-const pos = { x: 0, y: 0 };
-let count = 0;
 
-while (true) {
-  pos.y += slope.y;
-  if (pos.y >= trees.length) break;
+type Coord = { x: number; y: number };
 
-  pos.x += slope.x;
-  if (pos.x >= width) pos.x -= width;
+const countTreeCollisions = (slope: Coord): number => {
+  const pos = { x: 0, y: 0 };
+  let count = 0;
 
-  if (trees[pos.y][pos.x] === "#") count++;
-}
+  while (true) {
+    pos.y += slope.y;
+    if (pos.y >= trees.length) break;
 
-console.log("count", count);
+    pos.x += slope.x;
+    if (pos.x >= width) pos.x -= width;
+
+    if (trees[pos.y][pos.x] === "#") count++;
+  }
+  return count;
+};
 
 // ans 228
+console.log("part 1", countTreeCollisions({ x: 3, y: 1 }));
+
+const slopes = [
+  { x: 1, y: 1 },
+  { x: 3, y: 1 },
+  { x: 5, y: 1 },
+  { x: 7, y: 1 },
+  { x: 1, y: 2 },
+];
+
+const part2 = slopes.map(countTreeCollisions).reduce((sum, c) => sum * c);
+
+// ans 6818112000
+console.log("part2", part2);

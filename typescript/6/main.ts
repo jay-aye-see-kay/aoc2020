@@ -38,5 +38,5 @@ const groupTotals2 = groups.map((group) => {
   return sharedAnswers.size;
 });
 
-// not 3196, too low
+// ans 3202
 console.log("part 2: ", sum(groupTotals2));

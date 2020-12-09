@@ -53,3 +53,20 @@ while (bagsJustFound.length) {
 
 // ans 115
 console.log("part 1: ", allBagsFound.size);
+
+// -- part 2 --
+
+const countChildBags = (bag: string): number => {
+  const conditions = rules[bag];
+  if (conditions.length === 0) return 0;
+
+  const childCounts = conditions.map(({ bagName, count }) => {
+    const childCount = countChildBags(bagName);
+    return count + count * childCount;
+  });
+
+  return childCounts.reduce((sum, n) => sum + n);
+};
+
+// ans 1250
+console.log("part 2: ", countChildBags("shiny gold"));
